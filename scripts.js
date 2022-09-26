@@ -52,24 +52,31 @@ const transactions = [
 // assim, terei o total
 
 const Transaction = {
+    all: transactions, 
+    add(transaction){
+        Transaction.all.push(transaction)
+
+        App.reload()
+    },
+
     incomes(){
         let income = 0;
-        transactions.forEach(function(transaction){
+        Transaction.all.forEach(function(transaction){
             if(transaction.amount > 0){
                 income = income + transaction.amount;
             }
         })
-        return income
+        return income;
     },
 
     expenses(){
         let expense = 0;
-        transactions.forEach(function(transaction){
+        Transaction.all.forEach(function(transaction){
             if(transaction.amount < 0){
                 expense = expense + transaction.amount;
             }
         })
-        return expense
+        return expense;
        
     },
 
@@ -77,8 +84,6 @@ const Transaction = {
         return Transaction.incomes() + Transaction.expenses();
     }
 }
-
-// substituir os dados do HTML com os dados do JS
 
 const DOM = {
     transactionsContainer: document.querySelector('#data-table tbody'),
@@ -118,6 +123,10 @@ const DOM = {
         document
             .getElementById('totalDisplay')
             .innerHTML = Utils.formatCurrency(Transaction.total())
+    },
+
+    clearTransactions(){
+        DOM.transactionsContainer.innerHTML = ""
     }
 }
 
@@ -135,9 +144,27 @@ const Utils = {
     }
 }
 
+const App = {
+    init(){
+        Transaction.all.forEach(function(transaction){
+            DOM.addTransaction(transaction)
+        })
+        
+        DOM.updateBalance()
+    },
+    reload(){
+        DOM.clearTransactions()
+        App.init()
+    },
+}
 
-transactions.forEach(function(transaction){
-    DOM.addTransaction(transaction)
+
+App.init()
+
+Transaction.add({
+    id: 39,
+    description: "alo",
+    amount: 200,
+    date: '23/01/2021'
 })
 
-DOM.updateBalance()
