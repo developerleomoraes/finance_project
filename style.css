@@ -2,6 +2,9 @@
 /*Global ================================*/
 :root{
     --dark-blue: #33394e;
+    --green: #49aa26;
+    --light-green: #3fd109;
+    --red: #e92929;
 }
 
 html {
@@ -53,13 +56,50 @@ a {
 }
 
 a:hover{
-    color: #3fd109;
+    color: var(--light-green);
     
 }
+
+#form button {
+    width: 100%;
+    height: 50px;
+
+    border: nome;
+    color: white;
+    background: var(--green);
+
+    padding: 0;
+
+    border-radius: 0.25rem;
+
+    cursor: pointer;
+}
+
+#form button:hover {
+    background: var(--light-green);
+}
+
 
 .button.new{
     display: inline-block;
     margin-bottom: .8rem;
+}
+
+#form .button.cancel {
+    color: var(--red);
+    border: 2px var(--red) solid;
+    border-radius: 0.25rem;
+
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0.6;
+}
+
+#form .button.cancel:hover {
+    
 }
 
 /* Header ===============================*/
@@ -113,7 +153,7 @@ header h1#logo{
 }
 
 .card.total{
-    background: #49aa26;
+    background: var(--green);
     color: white;
 }
 
@@ -172,7 +212,7 @@ td.income{
 }
 
 td.expense{
-    color: #e92929;
+    color: var(--red);
 }
 
 /* Model ================================*/
@@ -198,11 +238,47 @@ td.expense{
     visibility: visible;
 }
 
-.modal{
+.modal {
     background: #f0f2f5;
     padding: 2.4rem;
-    
 }
+
+/* Form ================================*/
+#form{
+    max-width: 500px;   
+}
+
+#form h2 {
+    margin-top: 0;
+}
+
+input {
+    border: nome;
+    border-radius: 0.2rem;
+
+    padding: 0.8rem;
+    width: 100%;
+}
+
+#form .input-group {
+    margin-top: 0.8rem;
+}
+
+#form .input-group small {
+    opacity: 0.4;
+}
+
+#form .input-group.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+}
+
+#form .input-group.actions .button,
+#form .input-group.actions button {
+    width: 48%;
+}
+
 
 
 /* Footer ===============================*/
