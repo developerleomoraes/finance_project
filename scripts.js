@@ -18,33 +18,6 @@ const Modal = {
     }
 }
 
-const transactions = [
-    {
-        id: 1,
-        description: 'Luz',
-        amount: -50001,
-        date: '23/01/2022',
-    },
-    {
-        id: 2,
-        description: 'Website',
-        amount: 500000,
-        date: '23/01/2022',
-    },
-    {
-        id: 3,
-        description: 'Internet',
-        amount: -20012,
-        date: '23/01/2022',
-    },
-    {
-        id: 4,
-        description: 'App',
-        amount: 200000,
-        date: '23/01/2022',
-    },
-]
-
 
 // preciso somar as entradas
 // somar as saídas
@@ -52,9 +25,37 @@ const transactions = [
 // assim, terei o total
 
 const Transaction = {
-    all: transactions, 
+    all: [
+        {
+            description: 'Luz',
+            amount: -50001,
+            date: '23/01/2022',
+        },
+        {
+            description: 'Website',
+            amount: 500000,
+            date: '23/01/2022',
+        },
+        {
+            description: 'Internet',
+            amount: -20012,
+            date: '23/01/2022',
+        },
+        {
+            description: 'App',
+            amount: 200000,
+            date: '23/01/2022',
+        },
+    ],
+
     add(transaction){
         Transaction.all.push(transaction)
+
+        App.reload()
+    },
+
+    remove(index){
+        Transaction.all.splice(index, 1)
 
         App.reload()
     },
@@ -144,6 +145,47 @@ const Utils = {
     }
 }
 
+const Form = {
+    description: document.querySelector('input#description'),
+    amount:      document.querySelector('input#amount'),
+    date:        document.querySelector('input#date'),
+
+    getValues(){
+        return{
+            description: Form.description.value,
+            amount: Form.amount.value,
+            date: Form.date.value
+        }
+    },
+
+    validateFields(){
+        const {description, amount, date} = Form.getValues()
+        if(
+            description.trim() === "" ||
+            amount.trim() === "" ||
+            date.trim() === ""){
+                throw new Error("Por favor, preencha todos os campos!")
+        }
+    },
+
+    submit(event){
+        event.preventDefault()
+
+        try{
+            Form.validateFields()
+            // formatar os dados para salvar
+            // Form.formatData()
+            // salvar
+            // apagar os dados do formulario
+            // fechar o modal
+            // atualizar a aplicação
+    
+        } catch(error){
+            alert(error.message)
+        }
+    }
+}
+
 const App = {
     init(){
         Transaction.all.forEach(function(transaction){
@@ -161,10 +203,4 @@ const App = {
 
 App.init()
 
-Transaction.add({
-    id: 39,
-    description: "alo",
-    amount: 200,
-    date: '23/01/2021'
-})
 
